@@ -5,7 +5,6 @@ from matplotlib import animation
 import random
 
 RCONST = 1
-BCONST = 10
 SCONST = 0.1
 
 fig = plt.figure()
