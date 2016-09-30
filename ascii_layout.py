@@ -93,10 +93,10 @@ def drawline(canvas,style,start,end):
         canvas[math.floor(pos[1])][math.floor(pos[0])] = style
         
 
-canvas = create_canvas(100,20)
-drawtextbox(canvas,'hellworld',(2,5))
-drawtextbox(canvas,'eeee',(2,8))
-drawtextbox(canvas,'aaa1',(20,5))
-drawcorrect(canvas)
+#canvas = create_canvas(100,20)
+#drawtextbox(canvas,'hellworld',(2,5))
+#drawtextbox(canvas,'eeee',(2,8))
+#drawtextbox(canvas,'aaa1',(20,5))
+#drawcorrect(canvas)
 
     

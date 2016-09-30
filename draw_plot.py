@@ -11,7 +11,7 @@ fig.set_size_inches(7, 6.5)
 ax = plt.axes(xlim=(-10, 10), ylim=(-10, 10))
 
 nodes = {}
-for i,node in enumerate(range(10)):
+for i,node in enumerate(range(3)):
 	node = {}
 	node['id'] = i
 	node['label'] = str(i)
@@ -24,15 +24,7 @@ edges = []
 try:
 	edges.append((nodes[0],nodes[1]))
 	edges.append((nodes[1],nodes[2]))
-	edges.append((nodes[2],nodes[3]))
-	edges.append((nodes[3],nodes[4]))
-	edges.append((nodes[4],nodes[5]))
-	edges.append((nodes[5],nodes[6]))
-	edges.append((nodes[3],nodes[7]))
-	edges.append((nodes[5],nodes[8]))
-	edges.append((nodes[1],nodes[9]))
-	edges.append((nodes[0],nodes[6]))
-	#edges.append((nodes[0],nodes[3]))
+	edges.append((nodes[0],nodes[2]))
 except:
 	pass
 
