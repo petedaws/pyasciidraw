@@ -1,10 +1,8 @@
 from matplotlib import pyplot as plt
 from matplotlib import animation
-import random
 import networkx as nx
 import force_directed
 import math
-
 
 fig = plt.figure()
 fig.set_dpi(100)
@@ -23,7 +21,6 @@ for i,node in enumerate(range(10)):
 
 edges = []
 
-
 try:
 	edges.append((nodes[0],nodes[1]))
 	edges.append((nodes[1],nodes[2]))
@@ -39,29 +36,21 @@ try:
 except:
 	pass
 
+def layout(nodes,edges):
+	for i in range(200):
+		force_directed.init_force(nodes)
+		force_directed.node_repulsion(nodes)
+		force_directed.edge_attraction(edges)
+		force_directed.force_limit(nodes)
+		force_directed.propogate(nodes)
+
 G = nx.Graph()
-def init():
-	G.add_nodes_from(nodes.keys())
-	G.add_edges_from([(c['id'],d['id']) for c,d in edges])
-	return []
+G.add_nodes_from(nodes.keys())
+G.add_edges_from([(c['id'],d['id']) for c,d in edges])
 
-def animate(i):
-	force_directed.init_force(nodes)
-	force_directed.node_repulsion(nodes)
-	force_directed.edge_attraction(edges)
-	force_directed.force_limit(nodes)
-	force_directed.propogate(nodes)
-	pos_nx = {}
-	for node,pos in nodes.items():
-		pos_nx[node] = (pos['x'],pos['y'])
-	nns = nx.draw_networkx_nodes(G,pos=pos_nx)
-	ees = nx.draw_networkx_edges(G,pos=pos_nx)
-	return ees,nns
-	
-anim = animation.FuncAnimation(fig, animate, 
-							   init_func=init, 
-							   frames=360, 
-							   interval=20,
-							   blit=True)
-
+layout(nodes,edges)
+pos_nx = {}
+for node,pos in nodes.items():
+	pos_nx[node] = (pos['x'],pos['y'])
+nns = nx.draw_networkx(G,pos=pos_nx)
 plt.show()
