@@ -1,5 +1,5 @@
 import math
-import ascii_layout
+from ascii_layout import Canvas
 import force_directed
 
 graph1 = [
@@ -10,6 +10,8 @@ graph1 = [
 		('cc13','bb25'),
 		('aa44','bb25'),
 		('cc13','dd23'),
+		('bb65','1234'),
+		('1234','aa55'),
 		]
 
 def layout(nodes,edges):
@@ -26,13 +28,14 @@ def translate_to_center(nodes,xmax,ymax):
 	translatey = float(ymax)/2-center[1]
 	force_directed.translate(nodes,translatex,translatey)
 
-canvas = ascii_layout.create_canvas(50,50)
+canvas = Canvas(50,50)
 nodes,edges = force_directed.parse_edge_list(graph1)
 layout(nodes,edges)
 translate_to_center(nodes,50,50)
+
 for node,o_node in edges:
-	ascii_layout.drawline(canvas,'.',(int(node['x']),int(node['y'])),(int(o_node['x']),int(o_node['y'])))
+	canvas.drawline('.',(int(node['x']),int(node['y'])),(int(o_node['x']),int(o_node['y'])))
 for node in nodes.values():
-	ascii_layout.drawtextbox(canvas,str(node['label']),(int(node['x']),int(node['y'])))
-ascii_layout.draw(canvas)
+	canvas.drawtextbox(str(node['label']),(int(node['x']),int(node['y'])))
+canvas.draw()
 
