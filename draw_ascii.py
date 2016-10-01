@@ -1,41 +1,32 @@
 import math
 import ascii_layout
 import force_directed
-
-try:
-	edges.append((nodes[0],nodes[1]))
-	edges.append((nodes[1],nodes[2]))
-	edges.append((nodes[0],nodes[2]))
-	edges.append((nodes[0],nodes[3]))
-except:
-	pass
-	
-nodes = {}
-for i,node in enumerate(range(10)):
-	node = {}
-	node['id'] = i
-	node['label'] = str(i)
-	node['x'] = 0.01*math.cos(i)
-	node['y'] = 0.01*math.sin(i)
-	nodes[i] = node
-
-edges = []
+import random
 
 
-try:
-	edges.append((nodes[0],nodes[1]))
-	edges.append((nodes[1],nodes[2]))
-	edges.append((nodes[2],nodes[3]))
-	edges.append((nodes[3],nodes[4]))
-	edges.append((nodes[4],nodes[5]))
-	edges.append((nodes[5],nodes[6]))
-	edges.append((nodes[3],nodes[7]))
-	edges.append((nodes[5],nodes[8]))
-	edges.append((nodes[1],nodes[9]))
-	edges.append((nodes[0],nodes[6]))
-	edges.append((nodes[0],nodes[3]))
-except:
-	pass
+graph1 = [
+		('a','b'),
+		('c','d'),
+		('a','d'),
+		('c','b'),
+		]
+			
+# Take in a list of string tuples
+def parse_edge_list(graph):
+	nodes = {}
+	edges = []
+	for edge_nodes in graph:
+		for node in edge_nodes:
+			if node in nodes:
+				continue
+			new_node = {}
+			new_node['id'] = node
+			new_node['label'] = str(node)
+			new_node['x'] = 0.01*random.random()
+			new_node['y'] = 0.01*random.random()
+			nodes[new_node['id']] = new_node
+		edges.append((nodes[edge_nodes[0]],nodes[edge_nodes[1]]))
+	return nodes,edges
 
 def layout(nodes,edges):
 	for i in range(2000):
@@ -46,6 +37,7 @@ def layout(nodes,edges):
 		force_directed.propogate(nodes)
 
 canvas = ascii_layout.create_canvas(50,50)
+nodes,edges = parse_edge_list(graph1)
 layout(nodes,edges)
 force_directed.translate(nodes,25,25)
 for node,o_node in edges:
