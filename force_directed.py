@@ -78,10 +78,20 @@ def parse_edge_list(graph):
 		edges.append((nodes[edge_nodes[0]],nodes[edge_nodes[1]]))
 	return nodes,edges
 	
-def get_center(nodes):
-	sumx = 0
-	sumy = 0
+def get_extremes(nodes):
+	xmin = 0
+	ymin = 0
 	for node in nodes.values():
-		sumx += node['x']
-		sumy += node['y']
-	return (sumx/len(nodes),sumy/len(nodes))
+		if node['x'] < xmin:
+			xmin = node['x']
+		if node['y'] < ymin:
+			ymin = node['y']
+	return xmin,ymin
+	
+def layout(nodes,edges,iterations):
+	for i in range(iterations):
+		init_force(nodes)
+		node_repulsion(nodes)
+		edge_attraction(edges)
+		force_limit(nodes)
+		propogate(nodes)

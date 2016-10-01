@@ -1,40 +1,37 @@
 import math
 
 class Canvas:
-	def __init__(self,x,y):
+	
+	def __init__(self,width=1,height=1):
+		self.height = height
+		self.width = width
 		self.canvas = []
-		for a in range(y):
-			line = []
-			for b in range(x):
-				line.append(' ')
-			self.canvas.append(line)
+		for a in range(self.height):
+			self.__add_row()
 		
+	def __add_row(self):
+		row = []
+		for b in range(self.width):
+			row.append(' ')
+		self.canvas.append(row)
+		
+	def __extend_row(self,row,length):
+		for i in range(length - (len(self.canvas[row]) - 1)):
+			self.canvas[row].append(' ')
+			
 	def __insert(self,x,y,char):
-		try:
-			self.canvas[x][y] = char
-		except IndexError:
-			pass
+		if x < 0 or y < 0:
+			return
+		if x >= len(self.canvas) - 1:
+			for row in range(x- (len(self.canvas) - 1)):
+				self.__add_row()
+				
+		if y >= len(self.canvas[x]) - 1:
+			self.__extend_row(x,y)
+		self.canvas[x][y] = char
 
 	def drawdot(self,pos):
 		self.__insert(pos[1],pos[0],'+')
-
-	def drawsquare(self,center,size):
-
-		#top line
-		drawdot(canvas,(center[0]-size,center[1]+size))
-		drawdot(canvas,(center[0]+size,center[1]+size))
-		drawline(canvas,'-',center[0]-size,center[1]+size,center[0]+size,center[1]+size)
-
-		#bottom line
-		drawdot(canvas,(center[0]-size,center[1]-size))
-		drawdot(canvas,(center[0]+size,center[1]-size))
-		drawline(canvas,'-',center[0]-size,center[1]-size,center[0]+size,center[1]-size)
-
-		#left line
-		drawline(canvas,'|',center[0]-size,center[1]-size,center[0]-size,center[1]+size)
-
-		#right line
-		drawline(canvas,'|',center[0]+size,center[1]-size,center[0]+size,center[1]+size)
 
 	def drawrect(self,bottomleft,topright):
 
@@ -62,7 +59,6 @@ class Canvas:
 			 self.__insert(pos[1],pos[0]+i,char)
 
 	def drawtextbox(self,text,pos):
-
 		bottomleft = (pos[0]-1,pos[1]-1)
 		topright = (pos[0] + len(text), pos[1]+1)
 		self.drawrect(bottomleft,topright)
