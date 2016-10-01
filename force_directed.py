@@ -1,7 +1,7 @@
 import math
 
-RCONST = 1
-SCONST = 0.1
+RCONST = 2
+SCONST = 0.01
 MAXFORCE = 1
 
 def init_force(nodes):
@@ -53,3 +53,8 @@ def propogate(nodes):
 	for node in nodes.values():
 		node['x'] = node['x'] + node['fx']
 		node['y'] = node['y'] + node['fy']
+		
+def translate(nodes,x,y):
+	for node in nodes.values():
+		node['x'] = node['x'] + x
+		node['y'] = node['y'] + y
