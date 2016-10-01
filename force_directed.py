@@ -93,5 +93,4 @@ def layout(nodes,edges,iterations):
 		init_force(nodes)
 		node_repulsion(nodes)
 		edge_attraction(edges)
-		force_limit(nodes)
 		propogate(nodes)
