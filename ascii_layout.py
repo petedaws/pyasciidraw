@@ -65,19 +65,17 @@ def create_canvas(x,y):
 		output.append(line)
 	return output
 
-def draw(canvas):
-	xaxis = [str(x % 10) for x in range(len(canvas[0]))]
-	print(' ',''.join(xaxis))
-	for i,line in enumerate(canvas):
-		print(i%10,''.join(line))
-
-def drawcorrect(canvas):
-	xaxis = [str(x % 10) for x in range(len(canvas[0]))]
+def draw(canvas,draw_axis=False):
+	if draw_axis:
+		xaxis = [str(x % 10) for x in range(len(canvas[0]))]
+	else:
+		xaxis = []
 	xaxis.insert(0,' ')
 	output = []
 	output.insert(0,''.join(xaxis))
 	for i,line in enumerate(canvas):
-		line.insert(0,str(i%10))
+		if draw_axis:
+			line.insert(0,str(i%10))
 		output.insert(0,''.join(line))
 
 	for line in output:

@@ -1,6 +1,7 @@
 import math
+import random
 
-RCONST = 2
+RCONST = 6
 SCONST = 0.01
 MAXFORCE = 1
 
@@ -58,3 +59,29 @@ def translate(nodes,x,y):
 	for node in nodes.values():
 		node['x'] = node['x'] + x
 		node['y'] = node['y'] + y
+
+			
+# Take in a list of string tuples
+def parse_edge_list(graph):
+	nodes = {}
+	edges = []
+	for edge_nodes in graph:
+		for node in edge_nodes:
+			if node in nodes:
+				continue
+			new_node = {}
+			new_node['id'] = node
+			new_node['label'] = str(node)
+			new_node['x'] = random.randrange(-100,100)
+			new_node['y'] = random.randrange(-100,100)
+			nodes[new_node['id']] = new_node
+		edges.append((nodes[edge_nodes[0]],nodes[edge_nodes[1]]))
+	return nodes,edges
+	
+def get_center(nodes):
+	sumx = 0
+	sumy = 0
+	for node in nodes.values():
+		sumx += node['x']
+		sumy += node['y']
+	return (sumx/len(nodes),sumy/len(nodes))

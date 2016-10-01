@@ -8,9 +8,9 @@ import math
 
 fig = plt.figure()
 fig.set_dpi(100)
-fig.set_size_inches(7, 6.5)
+fig.set_size_inches(10, 10)
 
-ax = plt.axes(xlim=(-10, 10), ylim=(-10, 10))
+ax = plt.axes(xlim=(-30, 30), ylim=(-30, 30))
 
 nodes = {}
 for i,node in enumerate(range(10)):
@@ -35,7 +35,7 @@ try:
 	edges.append((nodes[5],nodes[8]))
 	edges.append((nodes[1],nodes[9]))
 	edges.append((nodes[0],nodes[6]))
-	#edges.append((nodes[0],nodes[3]))
+	edges.append((nodes[0],nodes[3]))
 except:
 	pass
 
